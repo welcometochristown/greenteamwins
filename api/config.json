@@ -1,0 +1,9 @@
+{
+    "port": 4000,
+    "mongodb": {
+      "user": "greenteamwins-user",
+      "pass": "2d6XxpVcs2j56xm5",
+      "cluster": "cluster0.kfxq0.mongodb.net",
+      "collection": "greenteamwins"
+    }
+}
