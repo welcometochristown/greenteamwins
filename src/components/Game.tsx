@@ -125,9 +125,25 @@ const Game: React.FC<IProps> = ({
                 style={{
                   backgroundColor: "blue",
                   width: "50%",
+                  padding: 5,
                 }}
               >
-                teams
+                <div
+                  style={{
+                    backgroundColor: "purple",
+                    height: "50%",
+                  }}
+                >
+                  green
+                </div>
+                <div
+                  style={{
+                    backgroundColor: "grey",
+                    height: "50%",
+                  }}
+                >
+                  orange
+                </div>
               </div>
             </div>
           </div>
