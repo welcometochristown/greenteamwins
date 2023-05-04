@@ -20,7 +20,11 @@ const Team: React.FC<IProps> = ({ team, players }) => {
       {team}
       <List>
         {players.map((p, index) => (
-          <li key={index}>{p.name}</li>
+          <li key={index}>
+            {p.name} ({p.points} Points){" "}
+            {!!p.answer ? "submitted" : "waiting..."} ( Last answer was{" "}
+            {p.lastAnswer})
+          </li>
         ))}
       </List>
     </>

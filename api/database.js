@@ -27,11 +27,15 @@ const query = async (schema, opts={}) => {
   return await exec(async () => await schema.findOne(opts));
 };
 
-const update = async(req, schema, obj) => {
-  await exec(async () => await schema.findByIdAndUpdate(obj._id, obj));
+const updateMany = async(schema, obj) => {
+  await exec(async () => await schema.updateMany(obj));
 };
 
-const insert = async (req, obj) => {
+const update = async(schema, obj) => {
+  await exec(async () => await schema.findByIdAndUpdate({_id : obj._id}, obj));
+};
+
+const insert = async (obj) => {
   await exec(async () => await obj.save());
 };
 
@@ -44,5 +48,6 @@ module.exports = {
   update,
   query,
   queryMany,
-  truncate
+  truncate,
+  updateMany
 };

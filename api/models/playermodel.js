@@ -6,7 +6,9 @@ const schema = {
     game: mongoose.Schema.Types.String,
     host: mongoose.Schema.Types.Boolean,
     points: mongoose.Schema.Types.Number,
-    team: mongoose.Schema.Types.String
+    team: mongoose.Schema.Types.String,
+    answer: mongoose.Schema.Types.String,
+    lastAnswer: mongoose.Schema.Types.String
 };
 
 module.exports = mongoose.model("player", new mongoose.Schema(schema));

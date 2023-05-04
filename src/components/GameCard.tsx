@@ -1,35 +1,58 @@
-import ICard from "@/models/card";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardSubtitle,
-  CardText,
-  CardTitle,
-} from "reactstrap";
+import ICard, {
+  CARD_DIMENSION_HEIGHT_PIXELS,
+  CARD_DIMENSION_WIDTH_PIXELS,
+} from "@/models/card";
+import { useEffect, useRef } from "react";
+import useCard from "@/hooks/useCard";
 
 interface IProps {
   card?: ICard;
 }
 
 const GameCard: React.FC<IProps> = ({ card }) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { getImageSrc } = useCard();
+
+  const draw = (ctx: CanvasRenderingContext2D) => {
+    if (!card) return;
+
+    const image = new Image();
+    image.src = getImageSrc(card)!;
+
+    image.onload = () => {
+      ctx.drawImage(
+        image,
+        CARD_DIMENSION_WIDTH_PIXELS * card.ident.x,
+        CARD_DIMENSION_HEIGHT_PIXELS * card.ident.y,
+        CARD_DIMENSION_WIDTH_PIXELS,
+        CARD_DIMENSION_HEIGHT_PIXELS,
+        0,
+        0,
+        CARD_DIMENSION_WIDTH_PIXELS / 2,
+        CARD_DIMENSION_HEIGHT_PIXELS / 2
+      );
+    };
+  };
+
+  useEffect(() => {
+    if (!canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+    draw(context!);
+  }, [canvasRef, card]);
+
   return (
     <>
-      <Card
-        style={{
-          width: "18rem",
-        }}
-      >
-        <img alt="Sample" src="https://picsum.photos/300/200" />
-        <CardBody>
-          <CardTitle tag="h5">Card title</CardTitle>
-          <CardSubtitle className="mb-2 text-muted" tag="h6">
-            Card subtitle
-          </CardSubtitle>
-          <CardText>{JSON.stringify(card)}</CardText>
-          <Button>Button</Button>
-        </CardBody>
-      </Card>
+      <div className="game-card-outer">
+        <div className="game-card">
+          <canvas
+            ref={canvasRef}
+            width={CARD_DIMENSION_WIDTH_PIXELS / 2}
+            height={CARD_DIMENSION_HEIGHT_PIXELS / 2}
+          />
+        </div>
+      </div>
     </>
   );
 };

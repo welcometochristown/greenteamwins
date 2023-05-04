@@ -26,3 +26,27 @@ body {
     )
     rgb(var(--background-start-rgb));
 } */
+
+.buttons {
+  display:flex;
+  justify-content: space-between;
+
+}
+
+.game-card {
+  background-color: white; 
+  padding: 10px;
+}
+
+.game-card-outer {
+  display:flex !important;
+  justify-content: center;
+  background-color: white;
+  background-color: transparent
+}
+
+body {
+  background-image:url("../images/background.png");
+  padding:50px
+}
+

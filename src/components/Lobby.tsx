@@ -20,7 +20,11 @@ const Lobby: React.FC<IProps> = ({ game, player, players, onBeginGame }) => {
           <div key={index}>{p.name}</div>
         ))}
       </div>
-      {player?.host ? <Button onClick={onBeginGame}>Begin Game</Button> : null}
+      {player?.host ? (
+        <Button onClick={onBeginGame} disabled={(players?.length ?? 0) < 2}>
+          Begin Game
+        </Button>
+      ) : null}
     </>
   );
 };

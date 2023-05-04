@@ -30,7 +30,7 @@ const useGame = () => {
 
         return {
             ident : {x, y},
-            type : parseType(parts[0])!
+            type : parseType(parts[0])!,
         }
     }
 
@@ -44,14 +44,7 @@ const useGame = () => {
         }
       
     }
-
-    useEffect(() => {
-        console.log("game", game)
-        console.log("card", card)
-    }, [game, card])
-
-    useInterval(() => {
-        const poll = async () => {
+      const poll = async () => {
             if(!game) return;
 
             try{
@@ -59,27 +52,25 @@ const useGame = () => {
                 .then(response => response.json());
 
                 if(JSON.stringify(game) !== JSON.stringify(g))
-                setGameAndCard(g);
+                    setGameAndCard(g);
 
                 const p : IPlayer [] = await fetch(`http://localhost:4000/players/${game.code}`)
                 .then(response => response.json());
  
-                if(players.length !== p.length)
-                setPlayers(p);
+                if(players.length !== p.length || players.some((n, index)=> JSON.stringify(n) !== JSON.stringify(p[index])))
+                    setPlayers(p);
 
             }catch(err)
             {
                 console.log(err)
             }
-          
         }
 
-        poll();
-        
+    useInterval(() => {
+        poll(); 
     }, game ? 1000 : null);
 
     const createGameAsync = async (game : IGame) => {
-        console.log("createGameAsync")
         try{
             const g = await fetch('http://localhost:4000/game', {
                 method: 'PUT',
@@ -128,23 +119,33 @@ const useGame = () => {
 
     const startGameAsync = async () => {
         if(!game) return;
-
-        await updateGameAsync ({
-            ...game!, 
-            started:true
-        })
-    }
-
-    const nextRoundAsync = async () => {
-        if(!game) return;
         
-        const g = await fetch(`http://localhost:4000/game/${game.code}/nextround`)
+        const g = await fetch(`http://localhost:4000/game/${game.code}/start`)
         .then(response => response.json())
 
         setGameAndCard(g);
     }
 
-    return { game, card, players, createGameAsync, loadGameAsync, startGameAsync, nextRoundAsync}
+    const skipRoundAsync = async () => {
+        if(!game) return;
+        
+        const g = await fetch(`http://localhost:4000/game/${game.code}/skipround`)
+        .then(response => response.json())
+
+        setGameAndCard(g);
+    }
+
+    const finishRoundAsync = async () => {
+        if(!game) return;
+        
+        const g = await fetch(`http://localhost:4000/game/${game.code}/finishround`)
+        .then(response => response.json())
+
+        setGameAndCard(g);
+    }
+
+
+    return { game, card, players, createGameAsync, loadGameAsync, startGameAsync, skipRoundAsync, finishRoundAsync, poll}
 }
 
 export default useGame;
