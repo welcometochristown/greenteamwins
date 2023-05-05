@@ -33,20 +33,87 @@ body {
 
 }
 
-.game-card {
-  background-color: white; 
-  padding: 10px;
-}
-
-.game-card-outer {
-  display:flex !important;
-  justify-content: center;
-  background-color: white;
-  background-color: transparent
-}
-
 body {
   background-image:url("../images/background.png");
   padding:50px
 }
 
+.logobox {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  height:auto;
+}
+
+.centerbox {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.outerbox {
+    background-color: white;
+    width: 800px;
+    height: 600px;
+    padding:5px;
+}
+
+.headerbox {
+    background-color: orange;
+    height: 10%;
+    padding:5px;
+    display: flex
+}
+
+.header-card {
+    background-color: pink;
+    width: 50%;
+}
+
+.header-teams {
+    background-color: cyan;
+    width: 50%;
+}
+
+
+.cardteambox {
+  background-color:green;
+  height: 80%;
+  padding:5px;
+  display:flex
+}
+
+.vcard {
+    background-color: red;
+    width:45%;
+    display: flex;
+    justify-content: center;
+}
+/* 
+.game-card-canvas {
+  width:inherit;
+  height:inherit;
+}
+ */
+
+.teambox {
+    background-color: blue;
+    width: fit-content;
+    padding: 5px;
+    width:55%;
+}
+
+.team-green {
+    background-color: purple;
+    height: 50%;
+}
+
+.team-orange {
+    background-color: grey;
+    height: 50%;
+}
+
+.answer {
+    background-color: yellow;
+    height: 10%;
+}
